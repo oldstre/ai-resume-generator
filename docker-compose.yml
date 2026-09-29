@@ -1,0 +1,61 @@
+# AI Resume Generator — 全栈 Docker Compose
+#
+# 启动：docker-compose up -d
+# 停止：docker-compose down
+# 查看日志：docker-compose logs -f backend
+#
+# 端口映射（和开发环境一致，避免改前端 proxy 配置）：
+#   PostgreSQL  39432 → 5432
+#   Redis       39379 → 6379
+#   Backend     39801 → 39801
+#
+# 面试点：
+# - 开发/测试/生产环境统一：同一个 docker-compose up 拉起全栈
+# - 端口映射和 .env 一致，前端 vite proxy 不用改
+# - backend 容器内 DATABASE_URL 指向 postgres 服务名（不是 localhost）
+
+services:
+  postgres:
+    image: postgres:16
+    ports:
+      - "39432:5432"
+    environment:
+      POSTGRES_USER: resume
+      POSTGRES_PASSWORD: resume
+      POSTGRES_DB: resume
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U resume -d resume"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  redis:
+    image: redis:7
+    ports:
+      - "39379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  backend:
+    build: ./backend
+    ports:
+      - "39801:39801"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file: ./backend/.env
+    environment:
+      # 覆盖 .env 里的 localhost 地址，改成 Docker 服务名
+      DATABASE_URL: postgresql+asyncpg://resume:resume@postgres:5432/resume
+      REDIS_URL: redis://redis:6379/0
+    restart: unless-stopped
+
+volumes:
+  pgdata:

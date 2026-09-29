@@ -1,0 +1,14 @@
+{
+  "title": "专业技能",
+  "content": {
+    "items": [
+      {"skill": "Python", "years": 4, "level": "熟练", "note": "主力开发语言，熟悉异步编程、装饰器、元类等高级特性"},
+      {"skill": "FastAPI", "years": 2, "level": "熟练", "note": "熟悉依赖注入、Pydantic 校验、中间件机制"},
+      {"skill": "Django", "years": 2, "level": "掌握", "note": "理解 ORM、中间件、信号机制"},
+      {"skill": "PostgreSQL", "years": 3, "level": "熟练", "note": "熟悉索引优化、JSONB、CTE、窗口函数"},
+      {"skill": "Redis", "years": 2, "level": "掌握", "note": "用于缓存、分布式锁、消息队列"},
+      {"skill": "Docker", "years": 2, "level": "掌握", "note": "多阶段构建、docker-compose 编排"},
+      {"skill": "Linux", "years": 3, "level": "掌握", "note": "Shell 脚本、Nginx 配置、性能排查"}
+    ]
+  }
+}

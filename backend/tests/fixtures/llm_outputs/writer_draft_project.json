@@ -1,0 +1,25 @@
+{
+  "title": "项目经历",
+  "content": {
+    "items": [
+      {
+        "name": "高并发电商秒杀系统",
+        "role": "后端架构负责人",
+        "period": "2023.06 - 2024.03",
+        "tech": ["Python", "FastAPI", "Redis", "PostgreSQL", "Docker"],
+        "background": "日均PV 50万，秒杀活动峰值QPS 8000+，需保证不超卖、不宕机。",
+        "solution": "用 Redis 预扣库存 + Lua 脚本保证原子性；FastAPI 异步处理 + 消息队列削峰；PostgreSQL 分库分表存储订单。",
+        "result": "支撑 10w+ 并发秒杀，超卖率为 0，响应时间 < 200ms（优化前 2s+）。"
+      },
+      {
+        "name": "简历智能生成平台",
+        "role": "全栈开发",
+        "period": "2024.04 - 至今",
+        "tech": ["Python", "FastAPI", "LangChain", "DeepSeek", "LangGraph"],
+        "background": "用 AI 多智能体协作帮用户生成结构化简历，需要大纲→分段并发生成→校对自纠的完整管线。",
+        "solution": "LangGraph 状态图编排主编/撰写/校对三个 Agent，Send API 实现 5 段并发生成；SSE 流式推送进度；PostgreSQL 持久化 checkpoint 支持对话式编辑。",
+        "result": "单次生成 5 段简历内容 < 30s，支持自然语言对话修改。"
+      }
+    ]
+  }
+}
